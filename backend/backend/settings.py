@@ -144,3 +144,14 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # Token válido por 60 minutos
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),     # Refresh Token válido por 7 días
 }
+
+
+import os
+
+ALLOWED_HOSTS = ['*']
+DEBUG = False  # Esto puede variar
+
+# STATIC FILES para Render
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATIC_URL = '/static/'
