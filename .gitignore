@@ -1,0 +1,36 @@
+# ─── PYTHON / DJANGO ───
+venv/
+__pycache__/
+db.sqlite3
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+.env
+.env.*
+
+# Django migrations
+**/migrations/
+!.*/migrations/__init__.py
+
+# VSCode settings
+.vscode/
+
+# ─── NODE / FRONTEND ───
+node_modules/
+dist/
+*.log
+*.lock
+
+# ─── SISTEMA / SO ───
+.DS_Store
+Thumbs.db
+*.bak
+*.swp
+
+# ─── BUILD ───
+*.tar.gz
+*.zip
+
+# ─── GIT ───
+.git/
