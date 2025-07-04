@@ -1,40 +1,44 @@
-import { Link } from 'react-router-dom';
-import './Navbar.css';  // Archivo de estilos
+import { Link, useNavigate } from 'react-router-dom';
+import './Navbar.css';
 
 function Navbar() {
+  const navigate = useNavigate();
+  const token = localStorage.getItem('access');
+
+  const handleLogout = () => {
+    localStorage.removeItem('access');
+    navigate('/login');
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <h1 className="logo">Campeonato de Fulbito</h1>
+        <h1 className="logo">⚽ Campeonato de Fútbol</h1>
         <div className="nav-links">
+          {/* Menú Público */}
           <Link to="/">Inicio</Link>
+          <Link to="/dashboard-public">Pagina</Link>
+          <Link to="/login">Admin</Link>
 
-          {/* Equipos y Jugadores */}
-          <Link to="/equipos">Equipos</Link>
-          <Link to="/equipos/registrar">Registrar Equipo</Link>
-          <Link to="/jugadores">Jugadores</Link>
-          <Link to="/jugadores/registrar">Registrar Jugador</Link>
-
-          {/* Torneos, Etapas y Grupos */}
-          <Link to="/torneos">Torneos</Link>
-          <Link to="/torneos/registrar">Registrar Torneo</Link>
-          <Link to="/stages">Etapas</Link>
-          <Link to="/stages/registrar">Registrar Etapa</Link>
-          <Link to="/grupos">Grupos</Link>
-          <Link to="/grupos/registrar">Registrar Grupo</Link>
-
-          {/* Partidos, Eventos, Árbitros y Escenarios */}
-          <Link to="/partidos">Partidos</Link>
-          <a href="/partidos/registrar">Registrar Partido</a>
-          <Link to="/eventos-partido">Eventos de Partido</Link>
-          <Link to="/referees">Árbitros</Link>
-          <a href="/referee/registrar">Registrar Árbitro</a>
-          <Link to="/venues">Escenarios</Link>
-          <Link to="/venues/registrar">Registrar Escenario</Link>
-
-          {/* Otros */}
-          <Link to="/calendario">Calendario</Link>
-          <Link to="/tabla-posiciones">Tabla de Posiciones</Link>
+          {/* Menú Privado */}
+          {token && (
+            <>
+              <Link to="/dashboard">Dashboard</Link>
+              <Link to="/torneos-admin">Gestionar Torneos</Link>
+              <Link to="/equipos-admin">Gestionar Equipos</Link>
+              <Link to="/jugadores-admin">Gestionar Jugadores</Link>
+              <Link to="/partidos-admin">Gestionar Partidos</Link>
+              <Link to="/stages-admin">Gestionar Etapas</Link>
+              <Link to="/grupos-admin">Gestionar Grupos</Link>
+              <Link to="/venues-admin">Gestionar Sedes</Link>
+              <Link to="/referees-admin">Gestionar Árbitros</Link>
+              <Link to="/tabla-posiciones-admin">Gestionar Tabla de Posiciones</Link>
+              <Link to="/eventos-partido-admin">Gestionar Eventos de Partido</Link>
+              <button onClick={handleLogout} className="logout-button">
+                Cerrar sesión
+              </button>
+            </>
+          )}
         </div>
       </div>
     </nav>

@@ -1,0 +1,58 @@
+.dashboard-public {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Arial', sans-serif;
+}
+
+.dashboard-public h2 {
+  text-align: center;
+  color: #1e90ff;
+  margin-bottom: 1.5rem;
+}
+
+.dashboard-public section {
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  background-color: #f9f9f9;
+}
+
+.dashboard-public h3, .dashboard-public h4 {
+  color: #333;
+  border-bottom: 2px solid #1e90ff;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.dashboard-public ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.dashboard-public li {
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed #ccc;
+}
+
+.dashboard-public li:last-child {
+  border-bottom: none;
+}
+
+.dashboard-public a {
+  display: inline-block;
+  margin-top: 0.8rem;
+  color: #1e90ff;
+  text-decoration: none;
+}
+
+.dashboard-public a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .dashboard-public {
+    padding: 1rem;
+  }
+}
