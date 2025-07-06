@@ -1,48 +1,127 @@
-# ⚽ Campeonato de Fulbito
+# ⚽ Campeonato de Fulbito - Sistema de Gestión
 
-Sistema de gestión de campeonatos de fulbito, desarrollado con Django REST Framework y React (Vite).
+Proyecto integrador: Aplicación web para gestionar campeonatos de fulbito (fútbol 6), inspirada en Google Deportes.
 
-## 🚀 Funcionalidades principales:
+---
 
-- Gestión de Torneos, Etapas, Grupos, Equipos y Jugadores.
-- Registro y edición de Partidos, Eventos y Tabla de posiciones.
-- CRUD completo con frontend y backend conectados.
-- Diseño web simple y funcional.
+## Tabla de Contenidos
 
-## 🛠️ Tecnologías utilizadas:
+- [Descripción](#descripción)
+- [Tecnologías](#tecnologías)
+- [Arquitectura](#arquitectura)
+- [Instalación y Ejecución](#instalación-y-ejecución)
+- [Despliegue](#despliegue)
+- [Endpoints principales](#endpoints-principales)
+- [Vistas Frontend](#vistas-frontend)
+- [Capturas de Pantalla](#capturas-de-pantalla)
+- [Contribución](#contribución)
+- [Licencia](#licencia)
 
-- **Backend:** Django + Django REST Framework
-- **Frontend:** React + Vite + React Hook Form + Axios
-- **Base de Datos:** SQLite (modo desarrollo)
+---
 
-## 📂 Estructura del proyecto:
+## Descripción
 
-backend/ # Django Backend API
-frontend/ # React Frontend (Vite)
+Sistema web para la gestión integral de campeonatos de fulbito, permitiendo administración de torneos, equipos, jugadores, partidos, eventos y tabla de posiciones en tiempo real.
 
+---
 
-## ⚙️ Instalación y ejecución:
-### Backend (Django):
-cd backend
+## Tecnologías
+
+- **Backend:** Django, Django REST Framework, SimpleJWT, PostgreSQL
+- **Frontend:** Vite, React, React Router, React Hook Form, Axios, SWR/React Query
+- **Despliegue:** Render/Railway (backend), Vercel/Netlify (frontend)
+- **CI/CD:** GitHub Actions
+
+---
+
+## Arquitectura
+
+```
+root/
+│
+├── backend/           # Django + DRF
+│   ├── fulbito/       # App principal
+│   └── ...
+├── frontend/          # Vite + React
+│   └── src/
+│       └── components/
+│           └── Navbar.jsx
+│       └── ...
+├── .github/workflows/ # CI/CD
+└── README.md
+```
+
+---
+
+## Instalación y Ejecución
+
+### Backend
+
 ```bash
+cd backend
 python -m venv venv
-source venv/bin/activate  # En Windows: venv\Scripts\activate
+venv\Scripts\activate  # En Windows
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
+```
 
-Frontend (React + Vite):
+### Frontend
+
+```bash
 cd frontend
 npm install
 npm run dev
+```
 
+---
 
-✅ ¡Listo! Tu aplicación estará corriendo en:
+## Despliegue
 
-Backend: http://localhost:8000
+- **Backend:** [URL pública de Render/Railway](https://backend-ejemplo.onrender.com)
+- **Frontend:** [URL pública de Vercel/Netlify](https://frontend-ejemplo.vercel.app)
 
-Frontend: http://localhost:5173 (o el puerto que asigne Vite)
+---
 
+## Endpoints principales
 
-📃 Licencia
-Este proyecto es de uso libre para fines educativos o personales.
+- `POST /api/token/` - Login JWT
+- `GET /api/public/standings/<tournament_id>/` - Tabla de posiciones pública
+- `GET /api/public/schedule/<stage_id>/` - Calendario y eventos de partidos
+- CRUD completo para Torneos, Equipos, Jugadores, Partidos, etc. (requiere autenticación)
+
+---
+
+## Vistas Frontend
+
+- **Dashboard:** Resumen general del campeonato
+- **Equipos:** Listado y gestión de equipos
+- **Jugadores:** Listado y gestión de jugadores
+- **Calendario:** Partidos y eventos
+- **Tabla de posiciones:** Actualizada en tiempo real
+
+---
+
+## Capturas de Pantalla
+
+_Agrega aquí imágenes de las principales vistas y del DER_
+
+---
+
+## Contribución
+
+1. Haz un fork del repositorio
+2. Crea una rama (`git checkout -b feature/nueva-funcionalidad`)
+3. Haz commit de tus cambios (`git commit -am 'Agrega nueva funcionalidad'`)
+4. Haz push a la rama (`git push origin feature/nueva-funcionalidad`)
+5. Abre un Pull Request
+
+---
+
+## Licencia
+
+MIT
+
+---
+
+> Proyecto realizado para Práctica Profesional I - 2025

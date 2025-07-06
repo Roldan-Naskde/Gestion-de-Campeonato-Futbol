@@ -136,7 +136,7 @@ REST_FRAMEWORK = {
     )
 }
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
+    "https://roldan-naskde.github.io/",
 ]
 from datetime import timedelta
 
