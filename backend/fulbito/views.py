@@ -1,3 +1,4 @@
+from rest_framework.decorators import api_view
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
@@ -144,3 +145,34 @@ class PublicMatchesView(APIView):
         matches = Match.objects.all()
         serializer = MatchSerializer(matches, many=True)
         return Response(serializer.data)
+    
+
+@api_view(['GET'])
+def public_standings(request, tournament_id):
+    standings = Standing.objects.filter(tournament_id=tournament_id).order_by('-points', '-gd')
+    serializer = StandingSerializer(standings, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def public_schedule(request, stage_id):
+    matches = Match.objects.filter(stage_id=stage_id).select_related('team_home', 'team_away', 'venue')
+    result = []
+    for match in matches:
+        events = MatchEvent.objects.filter(match=match)
+        match_data = {
+            'match': {
+                'id': match.id,
+                'datetime': match.datetime,
+                'home_team': match.team_home.name,
+                'away_team': match.team_away.name,
+                'home_score': match.home_score,
+                'away_score': match.away_score,
+                'venue': match.venue.name
+            },
+            'events': MatchEventSerializer(events, many=True).data
+        }
+        result.append(match_data)
+    return Response(result)
+
+
