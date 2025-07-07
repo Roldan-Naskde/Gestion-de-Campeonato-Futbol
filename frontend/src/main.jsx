@@ -1,3 +1,4 @@
+import React from 'react';
 import { HashRouter } from 'react-router-dom';
 import './index.css';
 import { createRoot } from 'react-dom/client';
