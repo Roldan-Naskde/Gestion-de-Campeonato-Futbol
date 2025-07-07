@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import MyTokenObtainPairView
@@ -9,7 +10,8 @@ from .views import (
     PublicVenuesView, PublicTournamentsListView, PublicMatchesView
 )
 
-
+def home(request):
+    return HttpResponse("Backend de Fulbito funcionando.")
 router = DefaultRouter()
 router.register(r'tournaments', TournamentViewSet)
 router.register(r'stages', StageViewSet)
@@ -23,6 +25,8 @@ router.register(r'match-events', MatchEventViewSet)
 router.register(r'standings', StandingViewSet)
 
 urlpatterns = [
+    path('', home),
+
     path('api/', include(router.urls)),
 
     # Token JWT
