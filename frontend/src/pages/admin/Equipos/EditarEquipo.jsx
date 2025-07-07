@@ -49,8 +49,13 @@ function EditarEquipo() {
         </div>
 
         <div>
-          <label>Fecha de Fundación</label>
-          <input type="date" {...register('founded', { required: true })} />
+          <label>Año de Fundación</label>
+          <input
+            type="number"
+            min="1800"
+            max="2100"
+            {...register('founded', { required: 'Este campo es obligatorio' })}
+          />
         </div>
 
         <div>
@@ -59,7 +64,7 @@ function EditarEquipo() {
             <option value="">Seleccione un grupo</option>
             {grupos.map((grupo) => (
               <option key={grupo.id} value={grupo.id}>
-                {grupo.name}
+                {grupo.name} - {grupo.stage_name}
               </option>
             ))}
           </select>

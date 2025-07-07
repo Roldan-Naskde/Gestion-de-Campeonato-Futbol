@@ -34,7 +34,7 @@ function Torneos() {
       <table border="1">
         <thead>
           <tr>
-            <th>ID</th>
+            <th>N°</th>
             <th>Nombre</th>
             <th>Año</th>
             <th>Inicio</th>
@@ -43,9 +43,9 @@ function Torneos() {
           </tr>
         </thead>
         <tbody>
-          {torneos.map((torneo) => (
+          {torneos.map((torneo, index) => (
             <tr key={torneo.id}>
-              <td>{torneo.id}</td>
+              <td>{index + 1}</td>{/* Número de tabla, no ID */}
               <td>{torneo.name}</td>
               <td>{torneo.season_year}</td>
               <td>{torneo.start_date}</td>

@@ -24,7 +24,7 @@ function Partidos() {
       <table border="1">
         <thead>
           <tr>
-            <th>ID</th>
+            <th>N°</th>
             <th>Fecha y hora</th>
             <th>Equipo Local</th>
             <th>Equipo Visita</th>
@@ -36,10 +36,10 @@ function Partidos() {
           </tr>
         </thead>
         <tbody>
-          {partidos.map((p) => (
+          {partidos.map((p, index) => (
             <tr key={p.id}>
-              <td>{p.id}</td>
-              <td>{new Date(p.datetime).toLocaleString()}</td>
+              <td>{index + 1}</td>{/* Display the index + 1 for numbering */ }
+              <td>{new Date(p.datetime).toISOString().replace('T', ' ').substring(0, 16)}</td>
               <td>{p.team_home_name}</td>
               <td>{p.team_away_name}</td>
               <td>{p.venue_name}</td>

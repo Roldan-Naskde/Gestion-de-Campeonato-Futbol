@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import api from '../../../api/axios';
 import { Link } from 'react-router-dom';
@@ -17,6 +16,24 @@ function Jugadores() {
     }
   };
 
+  const posicionesTraducidas = {
+    GK: 'Arquero',
+    DEF: 'Defensa',
+    MID: 'Mediocampista',
+    FW: 'Delantero',
+  };
+
+  const calcularEdad = (fechaNacimiento) => {
+    const hoy = new Date();
+    const nacimiento = new Date(fechaNacimiento);
+    let edad = hoy.getFullYear() - nacimiento.getFullYear();
+    const mes = hoy.getMonth() - nacimiento.getMonth();
+    if (mes < 0 || (mes === 0 && hoy.getDate() < nacimiento.getDate())) {
+      edad--;
+    }
+    return edad;
+  };
+
   return (
     <div>
       <h2>Listado de Jugadores</h2>
@@ -24,24 +41,24 @@ function Jugadores() {
       <table border="1">
         <thead>
           <tr>
-            <th>ID</th>
+            <th>#</th>{/* En vez de ID */}
             <th>Nombre</th>
             <th>Apellido</th>
-            <th>Fecha Nac.</th>
+            <th>Edad</th>
             <th>Posición</th>
             <th>Equipo</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {jugadores.map((j) => (
+          {jugadores.map((j, index) => (
             <tr key={j.id}>
-              <td>{j.id}</td>
+              <td>{index + 1}</td>{/* Número de orden, empieza desde 1 */}
               <td>{j.first_name}</td>
               <td>{j.last_name}</td>
-              <td>{j.birth_date}</td>
-              <td>{j.position}</td>
-              <td>{j.team}</td>
+              <td>{calcularEdad(j.birth_date)} años</td>
+              <td>{posicionesTraducidas[j.position] || j.position}</td>
+              <td>{j.team_name}</td>
               <td>
                 <Link to={`/jugadores-admin/editar/${j.id}`}>Editar</Link>
                 {' | '}

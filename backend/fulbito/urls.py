@@ -5,9 +5,10 @@ from .views import MyTokenObtainPairView
 from .views import (
     TournamentViewSet, StageViewSet, GroupViewSet, TeamViewSet,
     PlayerViewSet, VenueViewSet, RefereeViewSet, MatchViewSet,
-    MatchEventViewSet, StandingViewSet, PublicStandingsView, PublicScheduleView,
+    MatchEventViewSet, StandingViewSet, PublicStandingsView, public_schedule,
     PublicTeamsView, PublicStagesView, PublicGroupsView, PublicPlayersView,
-    PublicVenuesView, PublicTournamentsListView, PublicMatchesView
+    PublicVenuesView, PublicTournamentsListView, PublicMatchesView,
+    ResetAutoincrementAPIView, PublicRefereesView
 )
 
 def home(request):
@@ -34,14 +35,17 @@ urlpatterns = [
 
     # Endpoints públicos existentes
     path('api/public/standings/<int:torneo_id>/', PublicStandingsView.as_view(), name='public-standings'),
-    path('api/public/schedule/<int:stage_id>/', PublicScheduleView.as_view(), name='public-schedule'),
+    path('api/public/schedule/<int:stage_id>/', public_schedule, name='public-schedule'),
 
     # ✅ Nuevos endpoints públicos (los que faltaban)
     path('api/public/matches/', PublicMatchesView.as_view(), name='public-matches'),
+    # Endpoint protegido para resetear autoincrement de IDs (solo admin)
+    path('api/admin/reset-autoincrement/', ResetAutoincrementAPIView.as_view(), name='reset-autoincrement'),
     path('api/public/teams/', PublicTeamsView.as_view(), name='public-teams'),
     path('api/public/stages/', PublicStagesView.as_view(), name='public-stages'),
     path('api/public/groups/', PublicGroupsView.as_view(), name='public-groups'),
     path('api/public/players/', PublicPlayersView.as_view(), name='public-players'),
     path('api/public/venues/', PublicVenuesView.as_view(), name='public-venues'),
+    path('api/public/referees/', PublicRefereesView.as_view(), name='public-referees'),
     path('api/public/tournaments/', PublicTournamentsListView.as_view(), name='public-tournaments'),
 ]

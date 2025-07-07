@@ -36,18 +36,18 @@ function Grupos() {
       <table>
         <thead>
           <tr>
-            <th>ID</th>
+            <th>N°</th>
             <th>Nombre del Grupo</th>
             <th>Etapa</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {grupos.map((grupo) => (
+          {grupos.map((grupo, index) => (
             <tr key={grupo.id}>
-              <td>{grupo.id}</td>
+              <td>{index + 1}</td>{/* Display the index + 1 for numbering */}
               <td>{grupo.name}</td>
-              <td>{grupo.stage}</td>
+              <td>{grupo.stage_name}</td>
               <td>
                 <Link to={`/grupos-admin/editar/${grupo.id}`}>Editar</Link>
                 <button onClick={() => eliminarGrupo(grupo.id)}>Eliminar</button>

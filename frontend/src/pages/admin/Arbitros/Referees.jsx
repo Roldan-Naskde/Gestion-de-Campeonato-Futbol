@@ -23,7 +23,7 @@ function Referees() {
       <table border="1">
         <thead>
           <tr>
-            <th>ID</th>
+            <th>N°</th>
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Categoria</th>
@@ -31,9 +31,9 @@ function Referees() {
           </tr>
         </thead>
         <tbody>
-          {arbitros.map((arbitro) => (
+          {arbitros.map((arbitro,index) => (
             <tr key={arbitro.id}>
-              <td>{arbitro.id}</td>
+              <td>{index + 1}</td>{/* Display the index + 1 for numbering */ }
               <td>{arbitro.first_name}</td>
               <td>{arbitro.last_name}</td>
               <td>{arbitro.category}</td>

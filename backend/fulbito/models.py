@@ -37,7 +37,7 @@ class Team(models.Model):
     name = models.CharField(max_length=100)
     logo = models.ImageField(upload_to='team_logos/', blank=True, null=True)
     coach_name = models.CharField(max_length=100)
-    founded = models.DateField()
+    founded = models.IntegerField()
     group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, blank=True, related_name='teams')
 
     def __str__(self):
@@ -57,6 +57,9 @@ class Player(models.Model):
     birth_date = models.DateField()
     position = models.CharField(max_length=3, choices=POSITION_CHOICES)
     team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='players')
+
+    class Meta:
+        unique_together = ('first_name', 'last_name', 'team')
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} - {self.team.name}"
@@ -117,9 +120,9 @@ class MatchEvent(models.Model):
 
 # ✅ Modelo: Tabla de Posiciones (Standing)
 class Standing(models.Model):
-    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, related_name='standings')
-    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='standings')
-    played = models.PositiveIntegerField(default=0)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
+    played = models.PositiveIntegerField(default=0)  # Partidos jugados
     won = models.PositiveIntegerField(default=0)
     drawn = models.PositiveIntegerField(default=0)
     lost = models.PositiveIntegerField(default=0)
@@ -129,8 +132,4 @@ class Standing(models.Model):
     points = models.PositiveIntegerField(default=0)
 
     class Meta:
-        unique_together = ('tournament', 'team')
-        ordering = ['-points', '-gd']
-
-    def __str__(self):
-        return f"{self.team} - {self.points} pts"
+        unique_together = ('team', 'tournament')

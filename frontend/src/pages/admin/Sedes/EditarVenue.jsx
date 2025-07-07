@@ -31,8 +31,12 @@ function EditarVenue() {
           <input {...register('address', { required: true })} />
         </div>
         <div>
+          <label>Ciudad</label>
+          <input {...register('city', { required: true })} />
+        </div>
+        <div>
           <label>Capacidad</label>
-          <input type="number" {...register('capacity', { required: true })} />
+          <input type="number" {...register('capacity', { required: true, min: 0 })} />
         </div>
         <button type="submit">Actualizar Sede</button>
       </form>

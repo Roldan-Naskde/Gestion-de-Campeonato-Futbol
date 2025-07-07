@@ -6,6 +6,16 @@ function JugadoresPublic() {
   const { torneoId } = useParams();
   const [jugadores, setJugadores] = useState([]);
 
+  const posicionesTraducidas = {
+    GK: 'Arquero',
+    DEF: 'Defensa',
+    MID: 'Mediocampista',
+    FW: 'Delantero',
+  };
+
+
+
+
   useEffect(() => {
     api.get(`public/players/?tournament_id=${torneoId}`).then((res) => {
       setJugadores(res.data);
@@ -18,8 +28,9 @@ function JugadoresPublic() {
       <ul>
         {jugadores.map((player) => (
           <li key={player.id}>
-            {player.first_name} {player.last_name} - {player.position} ({player.team_name})
+            {player.first_name} {player.last_name} - {posicionesTraducidas[player.position]} ({player.team_name})
           </li>
+
         ))}
       </ul>
     </div>

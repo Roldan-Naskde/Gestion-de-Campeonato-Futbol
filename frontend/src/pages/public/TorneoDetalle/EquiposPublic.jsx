@@ -15,13 +15,25 @@ function EquiposPublic() {
   return (
     <div>
       <h3>Equipos Participantes</h3>
-      <ul>
-        {equipos.map((equipo) => (
-          <li key={equipo.id}>
-            {equipo.name}
-          </li>
-        ))}
-      </ul>
+      <p>Estos son los equipos que participan en el torneo.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre del Equipo</th>
+            <th>Grupo</th>
+          </tr>
+        </thead>
+        <tbody>
+          {equipos.map((equipo) => (
+            <tr key={equipo.id}>
+              <td>{equipo.name}</td>
+              <td>{equipo.group_name}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+
     </div>
   );
 }

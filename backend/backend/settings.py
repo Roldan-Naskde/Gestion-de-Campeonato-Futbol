@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',  # Django Channels para WebSocket
     # Apps de Django
     'django.contrib.admin',
     'django.contrib.auth',
@@ -78,6 +79,9 @@ TEMPLATES = [
     },
 ]
 
+
+# Configuración para Channels (ASGI)
+ASGI_APPLICATION = 'backend.asgi.application'
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 

@@ -33,7 +33,7 @@ function Stages() {
       <table>
         <thead>
           <tr>
-            <th>ID</th>
+            <th>N°</th>
             <th>Nombre</th>
             <th>Orden</th>
             <th>Torneo</th>
@@ -41,9 +41,9 @@ function Stages() {
           </tr>
         </thead>
         <tbody>
-          {stages.map((stage) => (
+          {stages.map((stage, index) => (
             <tr key={stage.id}>
-              <td>{stage.id}</td>
+              <td>{index + 1}</td>{/* Display the index + 1 for numbering */}
               <td>{stage.name}</td>
               <td>{stage.order}</td>
               <td>{stage.tournament_name}</td>

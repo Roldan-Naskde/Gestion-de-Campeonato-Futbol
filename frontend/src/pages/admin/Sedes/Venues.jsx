@@ -23,19 +23,21 @@ function Venues() {
       <table border="1">
         <thead>
           <tr>
-            <th>ID</th>
+            <th>N°</th>
             <th>Nombre</th>
             <th>Dirección</th>
+            <th>Ciudad</th>
             <th>Capacidad</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {sedes.map((sede) => (
+          {sedes.map((sede, index) => (
             <tr key={sede.id}>
-              <td>{sede.id}</td>
+              <td>{index + 1}</td>{/* Display the index + 1 for numbering */}
               <td>{sede.name}</td>
               <td>{sede.address}</td>
+              <td>{sede.city}</td>
               <td>{sede.capacity}</td>
               <td>
                 <Link to={`/venues-admin/editar/${sede.id}`}>Editar</Link>

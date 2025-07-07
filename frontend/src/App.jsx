@@ -46,8 +46,6 @@ import Venues from './pages/admin/Sedes/Venues';
 import RegistrarVenue from './pages/admin/Sedes/RegistrarVenue';
 import EditarVenue from './pages/admin/Sedes/EditarVenue';
 import TablaPosiciones from './pages/admin/TablaPosiciones/TablaPosiciones';
-import RegistrarPosicion from './pages/admin/TablaPosiciones/RegistrarPosicion';
-import EditarPosicion from './pages/admin/TablaPosiciones/EditarPosicion';
 import Torneo from './pages/admin/Torneos/Torneo';
 import RegistarTorneo from './pages/admin/Torneos/RegistrarTorneo';
 import EditTorneo from './pages/admin/Torneos/EditarTorneo';
@@ -116,8 +114,6 @@ function App() {
           <Route path="/referees-admin/editar/:id" element={<PrivateRoute><EditarReferee /></PrivateRoute>} />
 
           <Route path="/tabla-posiciones-admin" element={<PrivateRoute><TablaPosiciones /></PrivateRoute>} />
-          <Route path="/tabla-posiciones-admin/registrar" element={<PrivateRoute><RegistrarPosicion /></PrivateRoute>} />
-          <Route path="/tabla-posiciones-admin/editar/:id" element={<PrivateRoute><EditarPosicion /></PrivateRoute>} />
 
           <Route path="/eventos-partido-admin" element={<PrivateRoute><EventosPartido /></PrivateRoute>} />
           <Route path="/eventos-partido-admin/registrar" element={<PrivateRoute><RegistrarEvento /></PrivateRoute>} />

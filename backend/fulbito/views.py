@@ -1,24 +1,11 @@
-from rest_framework.decorators import api_view
-from rest_framework import viewsets
-from rest_framework.response import Response
-from rest_framework.decorators import action
-from rest_framework.response import Response
+from django.db import connection
 from django.db.models import F
-from .models import Tournament
-from rest_framework.permissions import IsAuthenticated
-from rest_framework_simplejwt.views import TokenObtainPairView
-from .serializers import MyTokenObtainPairSerializer
+from rest_framework import viewsets
+from rest_framework.decorators import api_view, action
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import (
-    PublicTeamSerializer, PublicStageSerializer, PublicGroupSerializer, 
-    PublicPlayerSerializer, PublicVenueSerializer, PublicStandingSerializer,
-    PublicTournamentSerializer
-)
-
-
-
-class MyTokenObtainPairView(TokenObtainPairView):
-    serializer_class = MyTokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .models import (
     Tournament, Stage, Group, Team, Player, Venue,
@@ -27,13 +14,22 @@ from .models import (
 from .serializers import (
     TournamentSerializer, StageSerializer, GroupSerializer, TeamSerializer,
     PlayerSerializer, VenueSerializer, RefereeSerializer, MatchSerializer,
-    MatchEventSerializer, StandingSerializer
+    MatchEventSerializer, StandingSerializer, MyTokenObtainPairSerializer,
+    PublicTeamSerializer, PublicStageSerializer, PublicGroupSerializer,
+    PublicPlayerSerializer, PublicVenueSerializer, PublicStandingSerializer,
+    PublicTournamentSerializer
 )
+from .services import actualizar_tabla_posiciones
+from .utils import calcular_tabla_posiciones
 
+# JWT Token View
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+
+# CRUD ViewSets
 class TournamentViewSet(viewsets.ModelViewSet):
     queryset = Tournament.objects.all()
     serializer_class = TournamentSerializer
-    permission_classes = [IsAuthenticated]
 
 class StageViewSet(viewsets.ModelViewSet):
     queryset = Stage.objects.all()
@@ -59,10 +55,6 @@ class RefereeViewSet(viewsets.ModelViewSet):
     queryset = Referee.objects.all()
     serializer_class = RefereeSerializer
 
-class MatchViewSet(viewsets.ModelViewSet):
-    queryset = Match.objects.all()
-    serializer_class = MatchSerializer
-
 class MatchEventViewSet(viewsets.ModelViewSet):
     queryset = MatchEvent.objects.all()
     serializer_class = MatchEventSerializer
@@ -71,96 +63,121 @@ class StandingViewSet(viewsets.ModelViewSet):
     queryset = Standing.objects.all()
     serializer_class = StandingSerializer
 
+# Match con actualización automática de tabla
+class MatchViewSet(viewsets.ModelViewSet):
+    queryset = Match.objects.all()
+    serializer_class = MatchSerializer
 
-# ✅ Endpoint público para tabla de posiciones (ordenado por puntos y diferencia)
-from rest_framework.views import APIView
-class PublicStandingsView(APIView):
-    def get(self, request, tournament_id):
-        standings = Standing.objects.filter(tournament_id=tournament_id).order_by('-points', '-gd')
-        serializer = StandingSerializer(standings, many=True)
-        return Response(serializer.data)
+    def perform_create(self, serializer):
+        match = serializer.save()
+        actualizar_tabla_posiciones(match.team_home.group.stage.tournament_id)
 
+    def perform_update(self, serializer):
+        match = serializer.save()
+        actualizar_tabla_posiciones(match.team_home.group.stage.tournament_id)
 
-# ✅ Endpoint público para calendario con eventos
-class PublicScheduleView(APIView):
-    def get(self, request, stage_id):
-        matches = Match.objects.filter(team_home__group__stage_id=stage_id)
-        data = []
-        for match in matches:
-            match_data = MatchSerializer(match).data
-            events = MatchEvent.objects.filter(match=match)
-            match_data['events'] = MatchEventSerializer(events, many=True).data
-            data.append(match_data)
-        return Response(data)
+# Reset Autoincrement (Solo Admin)
+class ResetAutoincrementAPIView(APIView):
+    permission_classes = [IsAdminUser]
 
+    def post(self, request):
+        tables = [
+            'fulbito_tournament', 'fulbito_stage', 'fulbito_group', 'fulbito_team',
+            'fulbito_player', 'fulbito_venue', 'fulbito_referee', 'fulbito_match',
+            'fulbito_matchevent', 'fulbito_standing'
+        ]
+        with connection.cursor() as cursor:
+            for table in tables:
+                cursor.execute(f"DELETE FROM sqlite_sequence WHERE name='{table}'")
+        return Response({'status': 'Autoincrement reseteado'})
 
+# Generar Tabla de Posiciones Manualmente
+@api_view(['POST'])
+def generar_tabla_posiciones(request, tournament_id):
+    calcular_tabla_posiciones(tournament_id)
+    return Response({'status': 'Tabla de posiciones generada correctamente.'})
+
+# APIs Públicas (sin autenticación)
 class PublicTeamsView(APIView):
     def get(self, request):
         teams = Team.objects.all()
-        serializer = PublicTeamSerializer(teams, many=True)
-        return Response(serializer.data)
+        data = PublicTeamSerializer(teams, many=True).data
+        for idx, item in enumerate(data, 1):
+            item['numero'] = idx
+        return Response(data)
 
 class PublicStagesView(APIView):
     def get(self, request):
         stages = Stage.objects.all()
-        serializer = PublicStageSerializer(stages, many=True)
-        return Response(serializer.data)
+        data = PublicStageSerializer(stages, many=True).data
+        for idx, item in enumerate(data, 1):
+            item['numero'] = idx
+        return Response(data)
 
 class PublicGroupsView(APIView):
     def get(self, request):
         groups = Group.objects.all()
-        serializer = PublicGroupSerializer(groups, many=True)
-        return Response(serializer.data)
+        data = PublicGroupSerializer(groups, many=True).data
+        for idx, item in enumerate(data, 1):
+            item['numero'] = idx
+        return Response(data)
 
 class PublicPlayersView(APIView):
     def get(self, request):
         players = Player.objects.all()
-        serializer = PublicPlayerSerializer(players, many=True)
-        return Response(serializer.data)
+        data = PublicPlayerSerializer(players, many=True).data
+        for idx, item in enumerate(data, 1):
+            item['numero'] = idx
+        return Response(data)
 
 class PublicVenuesView(APIView):
     def get(self, request):
         venues = Venue.objects.all()
-        serializer = PublicVenueSerializer(venues, many=True)
-        return Response(serializer.data)
+        data = PublicVenueSerializer(venues, many=True).data
+        for idx, item in enumerate(data, 1):
+            item['numero'] = idx
+        return Response(data)
 
 class PublicTournamentsListView(APIView):
-
-    authentication_classes = []  # No authentication required for public view
-    permission_classes = []  # No permissions required for public view
-
     def get(self, request):
-        torneos = Tournament.objects.all()
-        serializer = PublicTournamentSerializer(torneos, many=True)
-        return Response(serializer.data)
+        tournaments = Tournament.objects.all()
+        data = PublicTournamentSerializer(tournaments, many=True).data
+        for idx, item in enumerate(data, 1):
+            item['numero'] = idx
+        return Response(data)
 
 class PublicStandingsView(APIView):
     def get(self, request, torneo_id):
         standings = Standing.objects.filter(tournament_id=torneo_id).order_by('-points', '-gd')
-        serializer = PublicStandingSerializer(standings, many=True)
-        return Response(serializer.data)
+        data = PublicStandingSerializer(standings, many=True).data
+        for idx, item in enumerate(data, 1):
+            item['numero'] = idx
+        return Response(data)
 
 class PublicMatchesView(APIView):
     def get(self, request):
         matches = Match.objects.all()
-        serializer = MatchSerializer(matches, many=True)
-        return Response(serializer.data)
-    
+        data = MatchSerializer(matches, many=True).data
+        for idx, item in enumerate(data, 1):
+            item['numero'] = idx
+        return Response(data)
 
-@api_view(['GET'])
-def public_standings(request, tournament_id):
-    standings = Standing.objects.filter(tournament_id=tournament_id).order_by('-points', '-gd')
-    serializer = StandingSerializer(standings, many=True)
-    return Response(serializer.data)
+class PublicRefereesView(APIView):
+    def get(self, request):
+        referees = Referee.objects.all()
+        data = RefereeSerializer(referees, many=True).data
+        for idx, item in enumerate(data, 1):
+            item['numero'] = idx
+        return Response(data)
 
-
+# Público - Calendario con eventos
 @api_view(['GET'])
 def public_schedule(request, stage_id):
-    matches = Match.objects.filter(stage_id=stage_id).select_related('team_home', 'team_away', 'venue')
+    matches = Match.objects.filter(team_home__group__stage_id=stage_id)
     result = []
     for match in matches:
         events = MatchEvent.objects.filter(match=match)
-        match_data = {
+        result.append({
             'match': {
                 'id': match.id,
                 'datetime': match.datetime,
@@ -171,8 +188,5 @@ def public_schedule(request, stage_id):
                 'venue': match.venue.name
             },
             'events': MatchEventSerializer(events, many=True).data
-        }
-        result.append(match_data)
+        })
     return Response(result)
-
-

@@ -17,7 +17,8 @@ function GruposPublic() {
       <h3>Grupos del Torneo</h3>
       <ul>
         {grupos.map((group) => (
-          <li key={group.id}>{group.name}</li>
+          <li key={group.id}>
+            {group.name} - {group.stage_name}</li>
         ))}
       </ul>
     </div>

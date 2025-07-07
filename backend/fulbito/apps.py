@@ -5,4 +5,4 @@ class FulbitoConfig(AppConfig):
     name = 'fulbito'
 
     def ready(self):
-        import backend.signals  # Importa las señales
+        import fulbito.signals  # Importa las señales al iniciar la app

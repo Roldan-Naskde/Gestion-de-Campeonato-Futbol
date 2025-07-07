@@ -50,7 +50,7 @@ function Equipos() {
               <td>{equipo.name}</td>
               <td>{equipo.coach_name}</td>
               <td>{equipo.founded}</td>
-              <td>{equipo.group}</td>
+              <td>{equipo.group_name}</td>
               <td>
                 <Link to={`/equipos-admin/editar/${equipo.id}`}>Editar</Link>
                 <button onClick={() => eliminarEquipo(equipo.id)}>Eliminar</button>

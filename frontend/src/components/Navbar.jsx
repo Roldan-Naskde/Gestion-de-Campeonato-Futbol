@@ -27,13 +27,13 @@ function Navbar() {
             <>
               <Link to="/dashboard">Dashboard</Link>
               <Link to="/torneos-admin">Gestionar Torneos</Link>
-              <Link to="/equipos-admin">Gestionar Equipos</Link>
-              <Link to="/jugadores-admin">Gestionar Jugadores</Link>
-              <Link to="/partidos-admin">Gestionar Partidos</Link>
               <Link to="/stages-admin">Gestionar Etapas</Link>
               <Link to="/grupos-admin">Gestionar Grupos</Link>
+              <Link to="/equipos-admin">Gestionar Equipos</Link>
+              <Link to="/jugadores-admin">Gestionar Jugadores</Link>
               <Link to="/venues-admin">Gestionar Sedes</Link>
               <Link to="/referees-admin">Gestionar Árbitros</Link>
+              <Link to="/partidos-admin">Gestionar Partidos</Link>
               <Link to="/tabla-posiciones-admin">Gestionar Tabla de Posiciones</Link>
               <Link to="/eventos-partido-admin">Gestionar Eventos de Partido</Link>
               <button onClick={handleLogout} className="logout-button">
