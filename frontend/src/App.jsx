@@ -16,7 +16,7 @@ import JugadoresPublic from './pages/Public/TorneoDetalle/JugadoresPublic';
 import SedesPublic from './pages/Public/TorneoDetalle/SedesPublic';
 import PartidosPublic from './pages/Public/TorneoDetalle/PartidosPublic';
 import Calendario from './pages/Public/TorneoDetalle/Calendario';
-import TorneosPublic from './pages/Public/TorneosPublic';
+import TorneosPublic from './pages/public/TorneosPublic';
 import DashboardPublic from './pages/public/DashboardPublic';
 
 // Admin (requiere login)
