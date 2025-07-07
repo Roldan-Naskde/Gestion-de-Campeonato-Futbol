@@ -9,3 +9,5 @@ python manage.py migrate
 # python manage.py createsuperuser --noinput (solo si has predefinido un admin)
 
 echo "Migraciones completadas ✅"
+
+python manage.py collectstatic --noinput
