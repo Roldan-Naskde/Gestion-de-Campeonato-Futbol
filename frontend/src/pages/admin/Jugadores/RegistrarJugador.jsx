@@ -1,6 +1,7 @@
+
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import api from '../../../api/axios';
-import { useEffect, useState } from 'react';
 
 function RegistrarJugador() {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();

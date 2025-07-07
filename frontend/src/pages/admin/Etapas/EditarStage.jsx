@@ -1,7 +1,7 @@
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import api from '../../../api/axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 
 function EditarStage() {
   const { id } = useParams();

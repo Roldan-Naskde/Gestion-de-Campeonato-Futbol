@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import api from '../../api/axios';
 import { Link } from 'react-router-dom';
 import { FaFutbol, FaChartBar, FaClock, FaListUl, FaCalendarAlt } from 'react-icons/fa';

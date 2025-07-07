@@ -1,7 +1,8 @@
+
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import api from '../../../api/axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
 
 function EditarVenue() {
   const { id } = useParams();

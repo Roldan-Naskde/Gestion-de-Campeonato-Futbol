@@ -1,6 +1,6 @@
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import api from '../../../api/axios';
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function RegistrarEquipo() {
