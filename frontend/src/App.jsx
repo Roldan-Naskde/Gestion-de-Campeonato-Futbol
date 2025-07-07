@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import PrivateRoute from './components/PrivateRoute';
@@ -53,7 +53,7 @@ import EditTorneo from './pages/admin/Torneos/EditarTorneo';
 
 function App() {
   return (
-    <BrowserRouter>
+    <>
       <Navbar />
       <div style={{ paddingTop: '80px', minHeight: 'calc(100vh - 160px)' }}>
         <Routes>
@@ -124,7 +124,7 @@ function App() {
         </Routes>
       </div>
       <Footer />
-    </BrowserRouter>
+    </>
   );
 }
 
