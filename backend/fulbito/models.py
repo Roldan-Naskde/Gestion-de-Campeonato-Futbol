@@ -122,6 +122,7 @@ class MatchEvent(models.Model):
 class Standing(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, null=True, blank=True)
     played = models.PositiveIntegerField(default=0)  # Partidos jugados
     won = models.PositiveIntegerField(default=0)
     drawn = models.PositiveIntegerField(default=0)

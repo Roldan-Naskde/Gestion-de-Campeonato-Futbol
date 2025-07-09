@@ -1,14 +1,13 @@
-from django.db.models import Q
-from .models import Match, Standing, Team
+from .models import Team, Standing, Match
 
 def calcular_tabla_posiciones(tournament_id):
     print(f"⚽ Calculando tabla para torneo ID: {tournament_id}")
 
-    # Filtrar equipos del torneo
+    # Filtrar equipos por torneo (vía Stage y Group)
     equipos = Team.objects.filter(group__stage__tournament_id=tournament_id)
     print(f"Equipos encontrados: {equipos.count()}")
 
-    # Limpiar posiciones anteriores
+    # Limpiar tabla previa
     Standing.objects.filter(tournament_id=tournament_id).delete()
 
     posiciones = {}
@@ -24,11 +23,10 @@ def calcular_tabla_posiciones(tournament_id):
             'points': 0,
         }
 
-    # Buscar partidos del torneo (usando equipo local)
     partidos = Match.objects.filter(
-        Q(team_home__group__stage__tournament_id=tournament_id) |
-        Q(team_away__group__stage__tournament_id=tournament_id)
+        team_home__group__stage__tournament_id=tournament_id
     )
+
     print(f"Partidos encontrados: {partidos.count()}")
 
     for partido in partidos:
@@ -63,7 +61,7 @@ def calcular_tabla_posiciones(tournament_id):
             posiciones[home]['points'] += 1
             posiciones[away]['points'] += 1
 
-    # Guardar tabla final
+    # Guardar posiciones
     for datos in posiciones.values():
         gd = datos['gf'] - datos['ga']
         Standing.objects.create(
@@ -78,4 +76,4 @@ def calcular_tabla_posiciones(tournament_id):
             gd=gd,
             points=datos['points'],
         )
-    print("✅ Tabla de posiciones actualizada.")
+    print("✅ Tabla generada exitosamente.")

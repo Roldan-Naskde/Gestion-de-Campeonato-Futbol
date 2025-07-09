@@ -16,6 +16,12 @@ function TabladePosicionesAdmin() {
     fetchData();
   }, []);
 
+  // Ordenar por puntos (descendente) y GD (descendente)
+  const posicionesOrdenadas = [...posiciones].sort((a, b) => {
+    if (b.points !== a.points) return b.points - a.points;
+    return b.gd - a.gd;
+  });
+
   return (
     <div>
       <h2>Tabla de Posiciones (Admin)</h2>
@@ -24,7 +30,6 @@ function TabladePosicionesAdmin() {
           <tr>
             <th>#</th>
             <th>Equipo</th>
-            <th>Torneo</th>
             <th>Jugados</th>
             <th>Ganados</th>
             <th>Empates</th>
@@ -36,16 +41,15 @@ function TabladePosicionesAdmin() {
           </tr>
         </thead>
         <tbody>
-          {posiciones.length === 0 ? (
+          {posicionesOrdenadas.length === 0 ? (
             <tr>
-              <td colSpan="11">No hay datos en la tabla de posiciones.</td>
+              <td colSpan="10">No hay datos en la tabla de posiciones.</td>
             </tr>
           ) : (
-            posiciones.map((p, index) => (
+            posicionesOrdenadas.map((p, index) => (
               <tr key={p.id}>
                 <td>{index + 1}</td>
                 <td>{p.team_name}</td>
-                <td>{p.tournament_name}</td>
                 <td>{p.played}</td>
                 <td>{p.won}</td>
                 <td>{p.drawn}</td>

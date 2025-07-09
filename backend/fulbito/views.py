@@ -70,11 +70,15 @@ class MatchViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         match = serializer.save()
-        actualizar_tabla_posiciones(match.team_home.group.stage.tournament_id)
+        # Recalcula automáticamente al crear
+        torneo_id = match.team_home.group.stage.tournament_id
+        calcular_tabla_posiciones(torneo_id)
 
     def perform_update(self, serializer):
         match = serializer.save()
-        actualizar_tabla_posiciones(match.team_home.group.stage.tournament_id)
+        # Recalcula automáticamente al actualizar
+        torneo_id = match.team_home.group.stage.tournament_id
+        calcular_tabla_posiciones(torneo_id)
 
 # Reset Autoincrement (Solo Admin)
 class ResetAutoincrementAPIView(APIView):
@@ -190,3 +194,13 @@ def public_schedule(request, stage_id):
             'events': MatchEventSerializer(events, many=True).data
         })
     return Response(result)
+
+# views.py
+@api_view(['GET'])
+def public_standings(request, tournament_id):
+    standings = Standing.objects.filter(
+        tournament_id=tournament_id
+    ).order_by('group__name', '-points', '-gd')
+
+    serializer = StandingSerializer(standings, many=True)
+    return Response(serializer.data)

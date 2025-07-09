@@ -165,15 +165,13 @@ class PublicStandingSerializer(serializers.ModelSerializer):
         fields = ['team_name', 'played', 'won', 'drawn', 'lost', 'gf', 'ga', 'gd', 'points']
 
 
-class PublicMatchSerializer(serializers.ModelSerializer):
-    team_home_name = serializers.CharField(source='team_home.name', read_only=True)
-    team_away_name = serializers.CharField(source='team_away.name', read_only=True)
-    venue_name = serializers.CharField(source='venue.name', read_only=True)
+# serializers.py
+class StandingSerializer(serializers.ModelSerializer):
+    team_name = serializers.CharField(source='team.name', read_only=True)
 
     class Meta:
-        model = Match
+        model = Standing
         fields = [
-            'id', 'datetime', 'team_home', 'team_away',
-            'venue', 'referee', 'home_score', 'away_score',
-            'team_home_name', 'team_away_name', 'venue_name'
+            'id', 'team_name', 'played', 'won', 'drawn', 'lost',
+            'gf', 'ga', 'gd', 'points'
         ]
