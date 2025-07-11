@@ -16,6 +16,8 @@ function EditarJugador() {
         api.get(`players/${id}/`),
         api.get('teams/'),
       ]);
+      const jugador = jugadorRes.data;
+      jugador.birth_date = new Date(jugador.birth_date).getFullYear(); // Convertir fecha a año
       reset(jugadorRes.data);
       setEquipos(equiposRes.data);
     };
@@ -23,6 +25,7 @@ function EditarJugador() {
   }, [id, reset]);
 
   const onSubmit = async (data) => {
+    data.birth_date = `${data.birth_date}-01-01`;
     await api.put(`players/${id}/`, data);
     navigate('/jugadores-admin');
   };
@@ -32,15 +35,35 @@ function EditarJugador() {
       <h2>Editar Jugador</h2>
       <div>
         <label>Nombre</label>
-        <input {...register('first_name', { required: 'Campo obligatorio' })} />
+        <input {...register('first_name', 
+          { required: 'Campo obligatorio',
+            pattern: {
+              value: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/,
+              message: 'Solo se permiten letras y espacios'
+            }
+           })} />
       </div>
       <div>
         <label>Apellido</label>
-        <input {...register('last_name', { required: 'Campo obligatorio' })} />
+        <input {...register('last_name', 
+          { required: 'Campo obligatorio',
+            pattern: {
+              value: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/,
+              message: 'Solo se permiten letras y espacios'
+            }
+           })} />
       </div>
       <div>
         <label>Fecha de Nacimiento</label>
-        <input type="date" {...register('birth_date', { required: 'Campo obligatorio' })} />
+        <input 
+        type="number"
+        min= "1950"
+        max= "2100"
+        {...register('birth_date', 
+        { required: 'Campo obligatorio',
+          min: { value: 1950, message: 'El año debe ser como mínimo 1950'},
+          max: { value: 2100, message: 'El año debe ser como máximo 2100'}
+         })} />
       </div>
       <div>
         <label>Posición</label>

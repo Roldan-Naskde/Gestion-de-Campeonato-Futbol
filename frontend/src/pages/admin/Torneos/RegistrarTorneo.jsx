@@ -4,7 +4,7 @@ import api from '../../../api/axios';
 import { useNavigate } from 'react-router-dom';
 
 function RegistrarTorneo() {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
@@ -17,6 +17,9 @@ function RegistrarTorneo() {
       alert('Error al registrar el torneo');
     }
   };
+
+  // Para validar fechas (comparación)
+  const startDate = watch('start_date');
 
   return (
     <div>
@@ -34,7 +37,11 @@ function RegistrarTorneo() {
           <label>Año de la Temporada</label>
           <input
             type="number"
-            {...register('season_year', { required: 'Este campo es obligatorio', min: 1900 })}
+            {...register('season_year', {
+              required: 'Este campo es obligatorio',
+              min: { value: 1950, message: 'El año debe ser como mínimo 1950' },
+              max: { value: 2030, message: 'El año debe ser como máximo 2030' }
+            })}
           />
           {errors.season_year && <span>{errors.season_year.message}</span>}
         </div>
@@ -42,8 +49,9 @@ function RegistrarTorneo() {
         <div>
           <label>Descripción</label>
           <textarea
-            {...register('description')}
+            {...register('description', { required: 'Este campo es obligatorio' })}
           />
+          {errors.description && <span>{errors.description.message}</span>}
         </div>
 
         <div>
@@ -59,7 +67,11 @@ function RegistrarTorneo() {
           <label>Fecha de Fin</label>
           <input
             type="date"
-            {...register('end_date', { required: 'Este campo es obligatorio' })}
+            {...register('end_date', {
+              required: 'Este campo es obligatorio',
+              validate: (value) =>
+                !startDate || value >= startDate || 'La fecha de fin debe ser posterior o igual a la fecha de inicio'
+            })}
           />
           {errors.end_date && <span>{errors.end_date.message}</span>}
         </div>

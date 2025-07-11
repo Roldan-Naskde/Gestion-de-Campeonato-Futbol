@@ -79,7 +79,20 @@ function RegistrarJugador() {
       </div>
       <div>
         <label>Fecha de Nacimiento</label>
-        <input type="number" {...register('birth_date', { required: 'Campo obligatorio' })} />
+        <input
+          type="number"
+          {...register('birth_date', {
+            required: 'Campo obligatorio',
+            min: {
+              value: 1950,
+              message: 'El año debe ser como mínimo 1950'
+            },
+            max: {
+              value: 2100,
+              message: 'El año debe ser como máximo 2030'
+            }
+          })}
+        />
         {errors.birth_date && <span>{errors.birth_date.message}</span>}
       </div>
       <div>

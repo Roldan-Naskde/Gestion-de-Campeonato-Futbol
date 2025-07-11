@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../../api/axios';
 import { Link } from 'react-router-dom';
+import './../../../../styles/RefereeList.css';
 
 function Referees() {
   const [arbitros, setArbitros] = useState([]);
@@ -17,30 +18,29 @@ function Referees() {
   };
 
   return (
-    <div>
+    <div className="referee-list-container">
       <h2>Listado de Árbitros</h2>
-      <Link to="/referees-admin/registrar">Registrar Árbitro</Link>
-      <table border="1">
+      <Link to="/referees-admin/registrar" className="btn-registrar">Registrar Árbitro</Link>
+      <table className="referee-table">
         <thead>
           <tr>
             <th>N°</th>
             <th>Nombre</th>
             <th>Apellido</th>
-            <th>Categoria</th>
+            <th>Categoría</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {arbitros.map((arbitro,index) => (
+          {arbitros.map((arbitro, index) => (
             <tr key={arbitro.id}>
-              <td>{index + 1}</td>{/* Display the index + 1 for numbering */ }
+              <td>{index + 1}</td>
               <td>{arbitro.first_name}</td>
               <td>{arbitro.last_name}</td>
               <td>{arbitro.category}</td>
               <td>
-                <Link to={`/referees-admin/editar/${arbitro.id}`}>Editar</Link>
-                {' | '}
-                <button onClick={() => eliminarArbitro(arbitro.id)}>Eliminar</button>
+                <Link to={`/referees-admin/editar/${arbitro.id}`} className="btn-editar">Editar</Link>
+                <button onClick={() => eliminarArbitro(arbitro.id)} className="btn-eliminar">Eliminar</button>
               </td>
             </tr>
           ))}

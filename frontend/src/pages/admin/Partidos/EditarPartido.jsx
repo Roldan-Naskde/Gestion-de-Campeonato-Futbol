@@ -77,11 +77,15 @@ useEffect(() => {
         </div>
         <div>
           <label>Marcador Local</label>
-          <input type="number" {...register('home_score', { required: true })} />
+          <input type="number" 
+          {...register('home_score', 
+          { required: true })} min={0} />
         </div>
         <div>
           <label>Marcador Visitante</label>
-          <input type="number" {...register('away_score', { required: true })} />
+          <input type="number" 
+          {...register('away_score',
+           { required: true })} min={0} />
         </div>
         <button type="submit">Actualizar Partido</button>
       </form>

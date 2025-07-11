@@ -76,9 +76,15 @@ class RefereeSerializer(serializers.ModelSerializer):
 
 
 class MatchEventSerializer(serializers.ModelSerializer):
+    player_name = serializers.SerializerMethodField()
+
+    def get_player_name(self, obj):
+        return f"{obj.player.first_name} {obj.player.last_name}"
+
     class Meta:
         model = MatchEvent
         fields = '__all__'
+
 
 
 class StandingSerializer(serializers.ModelSerializer):
@@ -101,6 +107,10 @@ class MatchSerializer(serializers.ModelSerializer):
     venue_name = serializers.CharField(source='venue.name', read_only=True)
     referee_name = serializers.SerializerMethodField()
 
+    group_name = serializers.CharField(source='team_home.group.name', read_only=True)
+    stage_name = serializers.CharField(source='team_home.group.stage.name', read_only=True)
+    tournament_name = serializers.CharField(source='team_home.group.stage.tournament.name', read_only=True)
+
     def get_referee_name(self, obj):
         if obj.referee:
             return f"{obj.referee.first_name} {obj.referee.last_name}"
@@ -112,7 +122,9 @@ class MatchSerializer(serializers.ModelSerializer):
             'id', 'datetime', 'team_home', 'team_away',
             'venue', 'referee', 'home_score', 'away_score',
             'team_home_name', 'team_away_name', 'venue_name', 'referee_name',
+            'group_name', 'stage_name', 'tournament_name'
         ]
+
 
 # ✅ Serializers Públicos (Solo lectura, sin ID de relaciones)
 class PublicTournamentSerializer(serializers.ModelSerializer):

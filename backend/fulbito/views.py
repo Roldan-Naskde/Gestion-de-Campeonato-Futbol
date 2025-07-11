@@ -162,9 +162,8 @@ class PublicMatchesView(APIView):
     def get(self, request):
         matches = Match.objects.all()
         data = MatchSerializer(matches, many=True).data
-        for idx, item in enumerate(data, 1):
-            item['numero'] = idx
         return Response(data)
+
 
 class PublicRefereesView(APIView):
     def get(self, request):

@@ -36,16 +36,25 @@ function RegistrarEvento() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label>Minuto</label>
-          <input type="number" {...register('minute', { required: true })} />
+          <input type="number" 
+          min="1" 
+          max="150"
+          {...register('minute', 
+          { required: true, min: 1, max: 150 })} />
         </div>
         <div>
           <label>Tipo de Evento</label>
-           <select {...register('event_type', { required: true })}>
+          <select {...register('event_type', { required: true })}>
             <option value="">Seleccione</option>
             <option value="GOAL">Gol</option>
             <option value="YELLOW">Tarjeta Amarilla</option>
             <option value="RED">Tarjeta Roja</option>
-            <option value="FOUL">Sustitución</option>
+            <option value="FOUL">Falta</option>
+            <option value="SUB">Sustitución</option>
+            <option value="PEN">Penal</option>
+            <option value="OFFSIDE">Fuera de Juego</option>
+            <option value="CORNER">Tiro de Esquina</option>
+            <option value="FREEKICK">Tiro Libre</option>
           </select>
         </div>
         <div>
@@ -57,7 +66,9 @@ function RegistrarEvento() {
           <select {...register('match', { required: true })}>
             <option value="">Seleccione</option>
             {partidos.map((p) => (
-              <option key={p.id} value={p.id}>{p.id}</option>
+              <option key={p.id} value={p.id}
+              >{p.team_home_name} vs {p.team_away_name}
+              </option>
             ))}
           </select>
         </div>

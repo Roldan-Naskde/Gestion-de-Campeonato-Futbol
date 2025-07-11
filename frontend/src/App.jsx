@@ -1,5 +1,5 @@
 import React from 'react';
-import {Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import PrivateRoute from './components/PrivateRoute';
@@ -8,14 +8,14 @@ import LandingPage from './pages/public/LandingPage';
 
 // Páginas públicas (solo tablas, visibles para todos)
 import TorneoDetalle from './pages/public/TorneoDetalle/TorneoDetalle';
-import TablaPosicionesPublic from './pages/Public/TorneoDetalle/TablaPosicionesPublic';
-import EquiposPublic from './pages/Public/TorneoDetalle/EquiposPublic';
-import EtapasPublic from './pages/Public/TorneoDetalle/EtapasPublic';
-import GruposPublic from './pages/Public/TorneoDetalle/GruposPublic';
-import JugadoresPublic from './pages/Public/TorneoDetalle/JugadoresPublic';
-import SedesPublic from './pages/Public/TorneoDetalle/SedesPublic';
-import PartidosPublic from './pages/Public/TorneoDetalle/PartidosPublic';
-import Calendario from './pages/Public/TorneoDetalle/Calendario';
+import TablaPosicionesPublic from './pages/public/TorneoDetalle/TablaPosicionesPublic';
+import EquiposPublic from './pages/public/TorneoDetalle/EquiposPublic';
+import EtapasPublic from './pages/public/TorneoDetalle/EtapasPublic';
+import GruposPublic from './pages/public/TorneoDetalle/GruposPublic';
+import JugadoresPublic from './pages/public/TorneoDetalle/JugadoresPublic';
+import SedesPublic from './pages/public/TorneoDetalle/SedesPublic';
+import PartidosPublic from './pages/public/TorneoDetalle/PartidosPublic';
+import Calendario from './pages/public/TorneoDetalle/Calendario';
 import TorneosPublic from './pages/public/TorneosPublic';
 import DashboardPublic from './pages/public/DashboardPublic';
 
@@ -62,7 +62,6 @@ function App() {
           <Route path="/LandingPage" element={<LandingPage />} />
           <Route path="/dashboard-public" element={<DashboardPublic />} />
 
-
           {/* Rutas anidadas por torneo */}
           <Route path="/torneos/:torneoId" element={<TorneoDetalle />}>
             <Route path="tabla-posiciones" element={<TablaPosicionesPublic />} />
@@ -74,7 +73,6 @@ function App() {
             <Route path="partidos" element={<PartidosPublic />} />
             <Route path="calendario" element={<Calendario />} />
           </Route>
-
 
           {/* Login */}
           <Route path="/login" element={<Login />} />

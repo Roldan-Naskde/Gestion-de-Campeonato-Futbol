@@ -44,7 +44,9 @@ function EditarStage() {
         </div>
         <div>
           <label>Orden</label>
-          <input type="number" {...register('order', { required: 'Este campo es obligatorio' })} />
+          <input type="number" {...register('order', { required: 'Este campo es obligatorio',
+            min: { value: 1, message: 'El orden debe ser mayor a 0' }
+          })} />
         </div>
         <div>
           <label>Torneo</label>

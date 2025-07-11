@@ -40,12 +40,24 @@ function EditarEquipo() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label>Nombre del Equipo</label>
-          <input {...register('name', { required: true })} />
+          <input {...register('name',
+            { required: 'Campo Obligatorio',
+              pattern: {
+                value: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/,
+                message: 'El nombre solo puede contener letras y espacios',
+              },
+            })} />
         </div>
 
         <div>
           <label>Nombre del Entrenador</label>
-          <input {...register('coach_name', { required: true })} />
+          <input {...register('coach_name',
+            { required: 'Campo Obligatorio',
+              pattern: {
+                value: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/,
+                message: 'El nombre solo puede contener letras y espacios',
+              },
+            })} />
         </div>
 
         <div>

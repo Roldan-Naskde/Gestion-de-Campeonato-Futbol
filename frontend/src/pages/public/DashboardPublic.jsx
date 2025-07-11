@@ -6,7 +6,7 @@ import '../../../styles/DashboardPublic.css';
 
 function DashboardPublic() {
   const [torneo, setTorneo] = useState(null);
-  const [partidoEnVivo, setPartidoEnVivo] = useState(null);
+  const [partidos, setPartidos] = useState([]);
   const [tabla, setTabla] = useState([]);
   const [proximos, setProximos] = useState([]);
   const [eventos, setEventos] = useState([]);
@@ -19,20 +19,15 @@ function DashboardPublic() {
         setTorneo(torneoActual);
 
         const partidosRes = await api.get('matches/');
-        const partidos = partidosRes.data;
-        const now = new Date();
-
-        const proximo = partidos.find(
-          (p) => new Date(p.datetime) > now
-        );
-        setPartidoEnVivo(proximo || partidos[0] || null);
+        setPartidos(partidosRes.data);
 
         if (torneoActual) {
           const tablaRes = await api.get(`public/standings/${torneoActual.id}/`);
           setTabla(tablaRes.data.slice(0, 3));
         }
 
-        setProximos(partidos.filter((p) => new Date(p.datetime) > now).slice(0, 3));
+        const now = new Date();
+        setProximos(partidosRes.data.filter(p => new Date(p.datetime) > now).slice(0, 3));
       } catch (error) {
         console.error(error);
       }
@@ -54,6 +49,22 @@ function DashboardPublic() {
     return () => clearInterval(interval);
   }, []);
 
+  // Detecta partidos en curso
+  const partidosEnCurso = partidos.filter(p => {
+    const start = new Date(p.datetime);
+    const now = new Date();
+    const end = new Date(start.getTime() + 105 * 60000); // 90 min + tiempo extra
+    return now >= start && now <= end;
+  });
+
+  // Calcula minuto actual
+  const calcularMinuto = (match) => {
+    const now = new Date();
+    const start = new Date(match.datetime);
+    const diff = Math.floor((now - start) / 60000);
+    return diff >= 0 ? `${diff}'` : "0'";
+  };
+
   return (
     <div className="dashboard-public">
       {torneo && (
@@ -62,20 +73,35 @@ function DashboardPublic() {
         </div>
       )}
 
+      {/* ✅ Partidos en Vivo */}
       <section>
-        <h3><FaClock /> Partido en Vivo / Próximo Partido</h3>
-        {partidoEnVivo ? (
-          <div>
-            <p>{partidoEnVivo.team_home_name} vs {partidoEnVivo.team_away_name}</p>
-            <p>{new Date(partidoEnVivo.datetime).toLocaleString()}</p>
-          </div>
+        <h3>Partidos en Vivo</h3>
+        {partidosEnCurso.length > 0 ? (
+          partidosEnCurso.map((match) => (
+            <div key={match.id} className="barra-vivo">
+              {match.team_home_name} {match.home_score} - {match.away_score} {match.team_away_name}<br />
+              Minuto: {calcularMinuto(match)}
+            </div>
+          ))
         ) : (
-          <p>No hay partidos en curso o próximos.</p>
+          <p>No hay partidos en vivo actualmente.</p>
         )}
       </section>
 
       <section>
-        <h4><FaListUl /> Últimos Eventos del Partido</h4>
+        <h3><FaClock /> Partido Próximo</h3>
+        {proximos.length > 0 ? (
+          proximos.map(p => (
+            <div key={p.id}>
+              <p>{p.team_home_name} vs {p.team_away_name}</p>
+              <p>{new Date(p.datetime).toLocaleString()}</p>
+            </div>
+          ))
+        ) : <p>No hay partidos próximos.</p>}
+      </section>
+
+      <section>
+        <h4><FaListUl /> Últimos Eventos</h4>
         <ul>
           {eventos.map((e) => (
             <li key={e.id}>
@@ -95,18 +121,6 @@ function DashboardPublic() {
           ))}
         </ul>
         <Link to="/torneos">Ver tabla completa</Link>
-      </section>
-
-      <section>
-        <h4><FaCalendarAlt /> Próximos Partidos</h4>
-        <ul>
-          {proximos.map((p) => (
-            <li key={p.id}>
-              {p.team_home_name} vs {p.team_away_name} -{' '}
-              {new Date(p.datetime).toLocaleString()}
-            </li>
-          ))}
-        </ul>
       </section>
     </div>
   );

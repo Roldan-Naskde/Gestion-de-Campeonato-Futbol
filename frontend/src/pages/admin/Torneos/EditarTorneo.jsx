@@ -43,7 +43,9 @@ function EditarTorneo() {
           <label>Año de la Temporada</label>
           <input
             type="number"
-            {...register('season_year', { required: 'Este campo es obligatorio' })}
+            {...register('season_year', { required: 'Este campo es obligatorio' 
+              , min: { value: 0, message: 'El año debe ser un número positivo'}
+            })}
           />
         </div>
 

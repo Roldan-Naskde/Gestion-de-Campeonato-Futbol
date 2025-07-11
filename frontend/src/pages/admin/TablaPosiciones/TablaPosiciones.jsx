@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../../api/axios';
+import './../../../../styles/TablaPosicionesAdmin.css';
 
 function TabladePosicionesAdmin() {
   const [posiciones, setPosiciones] = useState([]);
@@ -16,53 +17,54 @@ function TabladePosicionesAdmin() {
     fetchData();
   }, []);
 
-  // Ordenar por puntos (descendente) y GD (descendente)
   const posicionesOrdenadas = [...posiciones].sort((a, b) => {
     if (b.points !== a.points) return b.points - a.points;
     return b.gd - a.gd;
   });
 
   return (
-    <div>
-      <h2>Tabla de Posiciones (Admin)</h2>
-      <table border={1} style={{ width: '100%', marginTop: '20px' }}>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Equipo</th>
-            <th>Jugados</th>
-            <th>Ganados</th>
-            <th>Empates</th>
-            <th>Perdidos</th>
-            <th>GF</th>
-            <th>GA</th>
-            <th>GD</th>
-            <th>Puntos</th>
-          </tr>
-        </thead>
-        <tbody>
-          {posicionesOrdenadas.length === 0 ? (
+    <div className="tabla-posiciones-container">
+      <h2>🏆 Tabla de Posiciones</h2>
+      <div className="tabla-scroll">
+        <table className="tabla-posiciones">
+          <thead>
             <tr>
-              <td colSpan="10">No hay datos en la tabla de posiciones.</td>
+              <th>#</th>
+              <th>Equipo</th>
+              <th>J</th>
+              <th>G</th>
+              <th>E</th>
+              <th>P</th>
+              <th>GF</th>
+              <th>GA</th>
+              <th>GD</th>
+              <th>Pts</th>
             </tr>
-          ) : (
-            posicionesOrdenadas.map((p, index) => (
-              <tr key={p.id}>
-                <td>{index + 1}</td>
-                <td>{p.team_name}</td>
-                <td>{p.played}</td>
-                <td>{p.won}</td>
-                <td>{p.drawn}</td>
-                <td>{p.lost}</td>
-                <td>{p.gf}</td>
-                <td>{p.ga}</td>
-                <td>{p.gd}</td>
-                <td>{p.points}</td>
+          </thead>
+          <tbody>
+            {posicionesOrdenadas.length === 0 ? (
+              <tr>
+                <td colSpan="10" className="no-datos">No hay datos en la tabla de posiciones.</td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            ) : (
+              posicionesOrdenadas.map((p, index) => (
+                <tr key={p.id}>
+                  <td>{index + 1}</td>
+                  <td>{p.team_name}</td>
+                  <td>{p.played}</td>
+                  <td>{p.won}</td>
+                  <td>{p.drawn}</td>
+                  <td>{p.lost}</td>
+                  <td>{p.gf}</td>
+                  <td>{p.ga}</td>
+                  <td>{p.gd}</td>
+                  <td>{p.points}</td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

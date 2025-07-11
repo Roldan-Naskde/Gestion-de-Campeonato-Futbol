@@ -39,7 +39,9 @@ function RegistrarStage() {
         </div>
         <div>
           <label>Orden</label>
-          <input type="number" {...register('order', { required: 'Este campo es obligatorio' })} />
+          <input type="number" {...register('order', { required: 'Este campo es obligatorio',
+            min: { value: 1, message: 'El orden debe ser un número positivo' }
+           })} />
         </div>
         <div>
           <label>Torneo</label>

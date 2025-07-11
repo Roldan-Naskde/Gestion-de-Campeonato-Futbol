@@ -107,6 +107,11 @@ class MatchEvent(models.Model):
         ('YELLOW', 'Yellow Card'),
         ('RED', 'Red Card'),
         ('FOUL', 'Foul'),
+        ('SUB', 'Substitution'),
+        ('PEN', 'Penalty'),
+        ('OFFSIDE', 'Offside'),
+        ('CORNER', 'Corner'),
+        ('FREEKICK', 'Free Kick'),
     ]
     minute = models.PositiveIntegerField()
     event_type = models.CharField(max_length=10, choices=EVENT_CHOICES)
