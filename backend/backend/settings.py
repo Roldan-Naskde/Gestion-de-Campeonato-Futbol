@@ -96,13 +96,10 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join('/data/', 'db.sqlite3'),  # Carpeta persistente en Render
-    }
+    'default': dj_database_url.config(
+        default='sqlite:////data/db.sqlite3'
+    )
 }
-# Crear la carpeta /data si no existe (importante para Render)
-os.makedirs('/data', exist_ok=True)
 
 
 
