@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../../api/axios';  // Asegúrate que esta ruta esté bien en tu proyecto
+import api from '../../api/axios';
+import './../../../styles/TorneosPublic.css'; // 👈 Estilos externos
 
 function TorneosPublic() {
   const [torneos, setTorneos] = useState([]);
@@ -8,7 +9,6 @@ function TorneosPublic() {
   useEffect(() => {
     api.get('public/tournaments/')
       .then((res) => {
-        console.log('Torneos cargados:', res.data);  // 👈 Debug aquí
         setTorneos(res.data);
       })
       .catch((err) => {
@@ -16,20 +16,20 @@ function TorneosPublic() {
       });
   }, []);
 
-
   return (
-    <div>
-      <h2>Torneos Disponibles</h2>
-      <ul>
-  {torneos.map((torneo) => (
-    <li key={torneo.id}>
-      <Link to={`/torneos/${torneo.id}/tabla-posiciones`}>
-        {torneo.name} {/* Asegúrate de usar la propiedad correcta */}
-      </Link>
-    </li>
-  ))}
-</ul>
-
+    <div className="torneos-container">
+      <h2 className="torneos-title">🏆 Torneos Disponibles</h2>
+      <div className="torneos-grid">
+        {torneos.map((torneo) => (
+          <Link
+            to={`/torneos/${torneo.id}/tabla-posiciones`}
+            key={torneo.id}
+            className="torneo-card"
+          >
+            <h3 className="torneo-name">⚽ {torneo.name}</h3>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

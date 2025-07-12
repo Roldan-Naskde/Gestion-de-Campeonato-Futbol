@@ -1,0 +1,51 @@
+.torneos-container {
+  background: linear-gradient(to bottom, #1e1e2f, #2c2c3f);
+  color: #fff;
+  padding: 40px 20px;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.torneos-title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #ffd700;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 4px #000;
+}
+
+.torneos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.torneo-card {
+  background-color: #29293d;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+  color: #fff;
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: 2px solid transparent;
+}
+
+.torneo-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 20px rgba(255, 215, 0, 0.5);
+  border-color: #ffd700;
+  background-color: #353553;
+}
+
+.torneo-name {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #ffd700;
+}
+
+.torneo-info {
+  font-size: 0.95rem;
+  margin-bottom: 5px;
+}
