@@ -3,5 +3,5 @@ services:
     name: django-backend
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn backend.asgi:application
-    rootDir: backend  # <- Esto es importante, para que Render vea el runtime.txt en /backend/
+    startCommand: gunicorn backend.wsgi:application
+    rootDir: backend
