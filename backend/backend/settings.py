@@ -28,7 +28,11 @@ SECRET_KEY = 'insecure-key-for-dev'
 
 # Para local
 DEBUG = True
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "gestion-de-campeonato-futbol.onrender.com"
+]
 
 
 # Application definition
