@@ -146,8 +146,9 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
-CORS_ALLOW_ALL_ORIGINS = True
-from datetime import timedelta
+CORS_ALLOW_ALL_ORIGINS = [
+    "https://gestion-de-campeonato-futbol-rjox.vercel.app/",
+]
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # Token válido por 60 minutos
