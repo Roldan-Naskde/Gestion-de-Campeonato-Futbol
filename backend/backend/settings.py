@@ -101,6 +101,9 @@ DATABASES = {
         'NAME': os.path.join('/data/', 'db.sqlite3'),  # Carpeta persistente en Render
     }
 }
+# Crear la carpeta /data si no existe (importante para Render)
+os.makedirs('/data', exist_ok=True)
+
 
 
 # Password validation
