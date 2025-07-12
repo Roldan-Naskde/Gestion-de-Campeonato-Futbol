@@ -152,10 +152,9 @@ REST_FRAMEWORK = {
     )
 }
 
-CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_ALL_ORIGINS = True  # Permite todas las solicitudes CORS
 CORS_ALLOWED_ORIGINS = [
-    "https://gestion-de-campeonato-futbol-rjox.vercel.app",
-    "https://gestion-de-campeonato-futbol.onrender.com",
+    "http://localhost:5173",
 ]
 
 SIMPLE_JWT = {

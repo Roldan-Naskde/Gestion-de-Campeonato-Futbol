@@ -1,0 +1,64 @@
+.equipos-container {
+  padding: 2rem;
+  background: linear-gradient(to bottom, #e8f5e9, #ffffff);
+  border-radius: 16px;
+  max-width: 900px;
+  margin: auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+}
+
+.equipos-titulo {
+  font-size: 2rem;
+  text-align: center;
+  color: #1b5e20;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.equipos-subtitulo {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #388e3c;
+}
+
+.tabla-wrapper {
+  overflow-x: auto;
+}
+
+.tabla-equipos {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.tabla-equipos th,
+.tabla-equipos td {
+  padding: 14px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.tabla-equipos thead {
+  background-color: #2e7d32;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.tabla-equipos tbody tr:nth-child(odd) {
+  background-color: #f1f8e9;
+}
+
+.tabla-equipos tbody tr:hover {
+  background-color: #dcedc8;
+  transition: background-color 0.3s ease;
+}
+
+.equipo-nombre {
+  text-align: left;
+  font-weight: 600;
+  color: #1b5e20;
+}

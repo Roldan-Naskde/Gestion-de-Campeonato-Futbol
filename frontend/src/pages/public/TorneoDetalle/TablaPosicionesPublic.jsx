@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../../../api/axios';
+import './../../../../styles/TablaPosiciones.css'; // Asegúrate de importar tu CSS
 
 function TabladePosicionesPublic() {
   const { torneoId } = useParams();
@@ -19,46 +20,48 @@ function TabladePosicionesPublic() {
   }, [torneoId]);
 
   return (
-    <div>
-      <h2>Tabla de Posiciones</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Equipo</th>
-            <th>Jugados</th>
-            <th>Ganados</th>
-            <th>Empates</th>
-            <th>Perdidos</th>
-            <th>GF</th>
-            <th>GA</th>
-            <th>GD</th>
-            <th>Puntos</th>
-          </tr>
-        </thead>
-        <tbody>
-          {posiciones.length === 0 ? (
+    <div className="tabla-container">
+      <h2 className="tabla-titulo">🏆 Tabla de Posiciones</h2>
+      <div className="tabla-wrapper">
+        <table className="tabla">
+          <thead>
             <tr>
-              <td colSpan="10">No hay datos de la tabla de posiciones.</td>
+              <th>#</th>
+              <th>Equipo</th>
+              <th>PJ</th>
+              <th>G</th>
+              <th>E</th>
+              <th>P</th>
+              <th>GF</th>
+              <th>GA</th>
+              <th>GD</th>
+              <th>Pts</th>
             </tr>
-          ) : (
-            posiciones.map((p, index) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{p.team_name}</td>
-                <td>{p.played}</td>
-                <td>{p.won}</td>
-                <td>{p.drawn}</td>
-                <td>{p.lost}</td>
-                <td>{p.gf}</td>
-                <td>{p.ga}</td>
-                <td>{p.gd}</td>
-                <td>{p.points}</td>
+          </thead>
+          <tbody>
+            {posiciones.length === 0 ? (
+              <tr>
+                <td colSpan="10">No hay datos disponibles.</td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            ) : (
+              posiciones.map((p, index) => (
+                <tr key={index} className="fila-posicion">
+                  <td>{index + 1}</td>
+                  <td className="equipo-nombre">{p.team_name}</td>
+                  <td>{p.played}</td>
+                  <td>{p.won}</td>
+                  <td>{p.drawn}</td>
+                  <td>{p.lost}</td>
+                  <td>{p.gf}</td>
+                  <td>{p.ga}</td>
+                  <td>{p.gd}</td>
+                  <td className="puntos">{p.points}</td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
