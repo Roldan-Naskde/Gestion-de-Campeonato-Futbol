@@ -147,14 +147,18 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
-CORS_ALLOW_ALL_ORIGINS = [
-    "https://gestion-de-campeonato-futbol-rjox.vercel.app/",
+
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGINS = [
+    "https://gestion-de-campeonato-futbol-rjox.vercel.app",
+    "https://gestion-de-campeonato-futbol.onrender.com",
 ]
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # Token válido por 60 minutos
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),     # Refresh Token válido por 7 días
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
 }
+
 
 
 # Para local no necesitas STATIC_ROOT
