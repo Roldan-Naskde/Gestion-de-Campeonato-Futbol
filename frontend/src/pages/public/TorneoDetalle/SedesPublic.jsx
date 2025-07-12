@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../../../api/axios';
+import './../../../../styles/SedesPublic.css'; // 👈 Crea este archivo CSS
 
 function SedesPublic() {
   const { torneoId } = useParams();
@@ -13,18 +14,18 @@ function SedesPublic() {
   }, [torneoId]);
 
   return (
-    <div>
-      <h3>Sedes del Torneo</h3>
-      <ul>
+    <div className="sedes-container">
+      <h3 className="sedes-title">📍 Sedes del Torneo</h3>
+      <div className="sedes-grid">
         {sedes.map((venue) => (
-          <li key={venue.id}>
-            <strong>{venue.name}</strong><br />
-            Dirección: {venue.address}<br />
-            Ciudad: {venue.city}<br />
-            Capacidad: {venue.capacity}
-          </li>
+          <div key={venue.id} className="sede-card">
+            <h4 className="sede-nombre">🏟️ {venue.name}</h4>
+            <p><strong>📌 Dirección:</strong> {venue.address}</p>
+            <p><strong>🌆 Ciudad:</strong> {venue.city}</p>
+            <p><strong>👥 Capacidad:</strong> {venue.capacity} personas</p>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,96 @@
+/* Contenedor general */
+.equipos-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Título */
+.equipos-container h2 {
+  text-align: center;
+  color: #004080;
+  margin-bottom: 20px;
+}
+
+/* Formulario */
+.equipos-container form div {
+  margin-bottom: 15px;
+}
+
+.equipos-container label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.equipos-container input,
+.equipos-container select {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.3s;
+}
+
+.equipos-container input:focus,
+.equipos-container select:focus {
+  border-color: #004080;
+}
+
+.equipos-container button {
+  background-color: #004080;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.equipos-container button:hover {
+  background-color: #0066cc;
+}
+
+/* Tabla */
+.equipos-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.equipos-table th,
+.equipos-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.equipos-table th {
+  background-color: #004080;
+  color: white;
+}
+
+.equipos-table td button,
+.equipos-table td a {
+  margin-right: 8px;
+  padding: 6px 10px;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.equipos-table td button:hover,
+.equipos-table td a:hover {
+  background-color: #0080ff;
+}

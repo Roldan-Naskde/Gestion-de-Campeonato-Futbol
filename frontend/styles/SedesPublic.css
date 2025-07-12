@@ -1,0 +1,50 @@
+.sedes-container {
+  background: linear-gradient(to right, #141e30, #243b55);
+  color: white;
+  padding: 40px 20px;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.sedes-title {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #00ffcc;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.sedes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.sede-card {
+  background-color: #2c3e50;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.sede-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 255, 204, 0.3);
+  border-color: #00ffcc;
+  background-color: #34495e;
+}
+
+.sede-nombre {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #00ffcc;
+}
+
+.sede-card p {
+  margin: 5px 0;
+  font-size: 0.95rem;
+  color: #ecf0f1;
+}
