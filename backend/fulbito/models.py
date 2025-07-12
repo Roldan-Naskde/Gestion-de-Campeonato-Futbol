@@ -35,7 +35,6 @@ class Group(models.Model):
 # ✅ Modelo: Equipo (Team)
 class Team(models.Model):
     name = models.CharField(max_length=100)
-    logo = models.ImageField(upload_to='team_logos/', blank=True, null=True)
     coach_name = models.CharField(max_length=100)
     founded = models.IntegerField()
     group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, blank=True, related_name='teams')
