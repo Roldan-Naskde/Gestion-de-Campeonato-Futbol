@@ -159,7 +159,7 @@ REST_FRAMEWORK = {
 CORS_ALLOW_ALL_ORIGINS = True  # Permite todas las solicitudes CORS
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "https://gestion-de-campeonato-futbol.vercel.app/"
+    "https://gestion-de-campeonato-futbol.vercel.app"
 ]
 
 SIMPLE_JWT = {
