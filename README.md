@@ -79,7 +79,7 @@ npm run dev
 ## Despliegue
 
 - **Backend:** [URL pública de Render/Railway](https://gestion-de-campeonato-futbol.onrender.com)
-- **Frontend:** [URL pública de Vercel/Netlify](https://frontend-ejemplo.vercel.app)
+- **Frontend:** [URL pública de Vercel/Netlify](https://gestion-de-campeonato-futbol-rjox.vercel.app/)
 
 ---
 
